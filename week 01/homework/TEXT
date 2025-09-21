@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ASCII Art from Image</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: monospace;
+      text-align: center;
+    }
+    #ascii {
+      white-space: pre;
+      font-size: 6px;
+      line-height: 6px;
+    }
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ASCII Art - Image to Text</h2>
+  <div id="ascii">Loading...</div>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const asciiChars = "@%#*+=-:. "; // dark to light
+
+    function getChar(gray) {
+      const index = Math.floor((gray / 255) * (asciiChars.length - 1));
+      return asciiChars[index];
+    }
+
+    function imageToASCII(imageSrc) {
+      const img = new Image();
+      img.src = imageSrc;
+      img.crossOrigin = "anonymous";
+
+      img.onload = function () {
+        const scale = 0.1;
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const width = Math.floor(img.width * scale);
+        const height = Math.floor(img.height * scale);
+
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.drawImage(img, 0, 0, width, height);
+        const imageData = ctx.getImageData(0, 0, width, height).data;
+
+        let ascii = '';
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const i = (y * width + x) * 4;
+            const r = imageData[i];
+            const g = imageData[i + 1];
+            const b = imageData[i + 2];
+            const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+            ascii += getChar(gray);
+          }
+          ascii += '\n';
+        }
+
+        document.getElementById('ascii').textContent = ascii;
+      };
+    }
+
+    // Start conversion using your image
+    imageToASCII("0.jpeg");
+  </script>
+
+</body>
+</html>
