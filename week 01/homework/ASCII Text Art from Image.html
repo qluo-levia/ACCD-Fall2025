@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ASCII Text Art from Image</title>
+  <title>ASCII Art from Image</title>
   <style>
     body {
-      background: black;
+      background-color: black;
       color: white;
       font-family: monospace;
       text-align: center;
@@ -25,12 +25,12 @@
 </head>
 <body>
 
-  <h2>ASCII Art from Image</h2>
-  <div id="ascii">Loading image...</div>
+  <h2>ASCII Art: Utada Hikaru - One Last Kiss</h2>
+  <div id="ascii">Loading...</div>
   <canvas id="canvas"></canvas>
 
   <script>
-    const asciiChars = "@%#*+=-:. "; // From dark to light
+    const asciiChars = "@%#*+=-:. "; // Dark to light characters
 
     function getChar(gray) {
       const index = Math.floor((gray / 255) * (asciiChars.length - 1));
@@ -39,11 +39,11 @@
 
     function imageToASCII(imageUrl) {
       const img = new Image();
-      img.crossOrigin = "anonymous"; // Allow loading from external source
+      img.crossOrigin = "anonymous"; // Required for external images
       img.src = imageUrl;
 
       img.onload = function () {
-        const scale = 0.1; // Resize scale
+        const scale = 0.12; // Resize image to reduce text size
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -64,7 +64,7 @@
             const r = imageData[i];
             const g = imageData[i + 1];
             const b = imageData[i + 2];
-            const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+            const gray = 0.299 * r + 0.587 * g + 0.114 * b; // Luminosity formula
             ascii += getChar(gray);
           }
           ascii += "\n";
@@ -74,12 +74,12 @@
       };
 
       img.onerror = function () {
-        document.getElementById('ascii').textContent = "Failed to load image.";
+        document.getElementById('ascii').textContent = "⚠️ Failed to load image.";
       };
     }
 
-    // Call function with your image URL
-    imageToASCII("https://images.genius.com/6c4c2d1b787ef3f5b1cdd907e98df700.870x870x1.jpg");
+    // Start the ASCII generation with your image
+    imageToASCII("https://upload.wikimedia.org/wikipedia/en/7/70/Utada_Hikaru_-_One_Last_Kiss.png");
   </script>
 
 </body>
