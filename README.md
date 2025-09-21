@@ -1,2 +1,4 @@
 # ACCD-Fall2025
-A design work
+in class - A cat
+
+Home work - text
