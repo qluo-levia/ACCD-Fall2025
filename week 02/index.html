@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        header {
+            background-color:rgb(246, 246, 246);
+        }
+
+        nav ul {
+                margin: 0;
+                padding: 20px;
+                list-style: none
+        }
+
+        nav ul li {
+            margin: 20px auto;
+            text-align: center;
+            border-bottom: 0.8px solid rgb(195, 195, 195);
+            padding-bottom: 15px;
+        }
+
+        nav ul li:last-child {
+            border-bottom: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(81, 81, 81);
+            text-transform: uppercase;
+
+        }
+
+        .active {
+            font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            nav ul {
+                display: flex;
+                justify-content: space-around;
+            }
+             nav ul li {
+            border-bottom: none;
+            margin: 10px;
+            padding: 0;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Work</a></li>
+                <li class="active cursive another0class">Blog</a></li>
+                <li><a href="#">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <p class="cursive">Shop The Latest From Nike® — Shop exclusive new styles crafted with the latest Nike® technology & innovations now. Gear up with new shoes & clothes designed for performance & comfort. Shop Nike® now.</p>
+        </main>
+    <footer></footer>
+</body>
+</html>
