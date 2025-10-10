@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .gallery {
+      max-width: 700px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .thumbnails img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      opacity: 0.7;
+    }
+
+    .thumbnails img.active {
+      opacity: 1;
+      transform: scale(1.05);
+      border: 2px solid #c2c2c2;
+    }
+
+    .large-image img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      height: 400px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #7a7a7a;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #656565;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gallery">
+    <div class="thumbnails">
+      <img src="file:///Users/mac/Desktop/%E7%BD%97%E5%80%A9%E6%80%A1/background/2019-02-01%20205147.jpg" alt="Thumb 1" class="active">
+      <img src="file:///Users/mac/Desktop/%E7%BD%97%E5%80%A9%E6%80%A1/background/2019-02-05%20114741.jpg" alt="Thumb 2">
+      <img src="file:///Users/mac/Desktop/%E7%BD%97%E5%80%A9%E6%80%A1/background/2019-02-05%20192248.jpg" alt="Thumb 3">
+      <img src="file:///Users/mac/Desktop/%E7%BD%97%E5%80%A9%E6%80%A1/ME!/IMG_6133.JPG" alt="Thumb 4">
+    </div>
+
+    <div class="large-image">
+      <img src="file:///Users/mac/Desktop/%E7%BD%97%E5%80%A9%E6%80%A1/background/2019-02-01%20205147.jpg" alt="Large display" id="mainImage">
+    </div>
+
+    <div class="controls">
+      <button id="pauseBtn">Pause</button>
+      <button id="playBtn" disabled>Play</button>
+    </div>
+  </div>
+
+  <script>
+    const thumbnails = document.querySelectorAll('.thumbnails img');
+    const mainImage = document.getElementById('mainImage');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const playBtn = document.getElementById('playBtn');
+    let currentIndex = 0;
+    let interval;
+
+    const startSlideshow = () => {
+      interval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % thumbnails.length;
+        updateMainImage(currentIndex);
+      }, 3000);
+      pauseBtn.disabled = false;
+      playBtn.disabled = true;
+    };
+
+    const pauseSlideshow = () => {
+      clearInterval(interval);
+      pauseBtn.disabled = true;
+      playBtn.disabled = false;
+    };
+
+    const updateMainImage = (index) => {
+      thumbnails.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+      const src = thumbnails[index].src.replace('/200/200', '/800/500');
+      mainImage.src = src;
+      currentIndex = index;
+    };
+
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        updateMainImage(index);
+        pauseSlideshow();
+      });
+    });
+
+    pauseBtn.addEventListener('click', pauseSlideshow);
+    playBtn.addEventListener('click', startSlideshow);
+
+    startSlideshow();
+  </script>
+</body>
+</html>
