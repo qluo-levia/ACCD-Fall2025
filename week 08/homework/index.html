@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flame Tracking</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+
+  <style>
+    body { margin: 0; background: black; overflow: hidden; }
+  </style>
+</head>
+<body>
+<script>
+let video;
+let particles = [];
+
+function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(320, 240);
+  video.hide();
+}
+
+function draw() {
+  background(0, 0, 0, 40); // 轻微拖影
+
+  video.loadPixels();
+
+  // 追踪蓝色（摄像头下偏暗，选偏紫蓝）
+  let target = { r:40, g:60, b:150 };
+  let threshold = 120;
+
+  let sumX = 0, sumY = 0, count = 0;
+
+  // 找蓝色区域质心
+  for (let y = 0; y < video.height; y++) {
+    for (let x = 0; x < video.width; x++) {
+      let i = (y * video.width + x) * 4;
+      let r = video.pixels[i];
+      let g = video.pixels[i + 1];
+      let b = video.pixels[i + 2];
+
+      if (dist(r, g, b, target.r, target.g, target.b) < threshold) {
+        sumX += x;
+        sumY += y;
+        count++;
+      }
+    }
+  }
+
+  if (count > 0) {
+    let cx = (sumX / count) * 2;
+    let cy = (sumY / count) * 2;
+
+    cx = width - cx; // 取消镜像
+
+    // 在追踪点喷出火焰粒子
+    emitFlame(cx, cy);
+  }
+
+  // 更新火焰粒子
+  updateParticles();
+}
+
+function emitFlame(x, y) {
+  for (let i = 0; i < 4; i++) {
+    particles.push({
+      x: x + random(-10, 10),
+      y: y + random(-10, 10),
+      vx: random(-1, 1),
+      vy: random(-3, -1),
+      size: random(10, 25),
+      life: 255
+    });
+  }
+}
+
+function updateParticles() {
+  for (let p of particles) {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life -= 4;
+
+    // 火焰颜色渐变：红 → 橙 → 黄
+    let r = map(p.life, 0, 255, 255, 255);
+    let g = map(p.life, 0, 255, 0, 180);
+    let b = map(p.life, 0, 255, 0, 30);
+
+    fill(r, g, b, p.life);
+    noStroke();
+    ellipse(p.x, p.y, p.size);
+  }
+
+  // 删除消失的粒子
+  particles = particles.filter(p => p.life > 0);
+}
+</script>
+</body>
+</html>
