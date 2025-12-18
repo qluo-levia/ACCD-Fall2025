@@ -18,7 +18,7 @@ let video;
 let handpose;
 let predictions = [];
 
-// 粒子数组
+
 let particles = [];
 
 function setup() {
@@ -40,7 +40,7 @@ function setup() {
 function draw() {
   background(0);
 
-  // 画面镜像
+
   push();
   translate(width, 0);
   scale(-1, 1);
@@ -52,7 +52,7 @@ function draw() {
     let thumb = hand[4];
     let index = hand[8];
 
-    // 镜像坐标
+
     let thumbX = width - thumb[0];
     let indexX = width - index[0];
     let thumbY = thumb[1];
@@ -61,18 +61,18 @@ function draw() {
     let distance = dist(thumbX, thumbY, indexX, indexY);
 
     if (distance < 60) {
-      // 两指靠近 → 一个大火球
+   
       let centerX = (thumbX + indexX) / 2;
       let centerY = (thumbY + indexY) / 2;
       drawRedFlame(centerX, centerY, true);
     } else {
-      // 分开 → 两个小火焰
+      
       drawRedFlame(thumbX, thumbY, false);
       drawRedFlame(indexX, indexY, false);
     }
   }
 
-  // 更新并绘制粒子
+ 
   for (let i = particles.length - 1; i >= 0; i--) {
     particles[i].update();
     particles[i].show();
@@ -99,7 +99,7 @@ function drawRedFlame(x, y, big = false) {
   fill(255, 140, 60, 180);
   ellipse(x, y + random(-6, 6), sizeBase/3, sizeBase/2);
 
-  // 生成周围飘散粒子
+
   let pCount = big ? 8 : 4;
   for (let i = 0; i < pCount; i++) {
     particles.push(new FlameParticle(x + random(-20, 20), y + random(-20, 20)));
@@ -108,7 +108,7 @@ function drawRedFlame(x, y, big = false) {
   blendMode(BLEND);
 }
 
-// 火焰粒子类
+
 class FlameParticle {
   constructor(x, y) {
     this.x = x;
