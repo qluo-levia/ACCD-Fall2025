@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width: 65%; margin-left: 30px; margin-top: 30px;"></div>
+    <h1>Documentation </h1>
+    <p><b>Materials Preparation </b>
+    <p>I plan to try the idea the teacher mentioned in class of using a box as a platform, with the sensor boxes placed on top. However, I realized that even the smallest box was not thin enough, so I stacked paper boxes, punched holes, and cut openings large enough for the USB to pass through.</p>
+        <img src="01.JPG" width="260"> <img src="02.JPG" width="150">  <img src="03.JPG" width="150"> <img src="04.JPG" width="150"> 
+
+        <br><br>
+    <p> Since it was my first attempt connecting external sensors, I was unsure about the wiring. As a result, my first attempt to connect a button (3.3 V → button → D13) failed.</p>
+        <video width="150" controls><source src="接口不对.mov" type="video/mp4"></video>
+    <p> I initially thought I could use the code from class that connects four buttons directly, so the button was not recognized. After changing the code to test only one button, it worked. Later, I realized that the issue was the resistor was placed incorrectly.</p>
+    <img src="测试只有一个按钮.png" width="260"> <video width="150" controls><source src="接口对了.MOV" type="video/mp4"></video>
+
+    <br><br>
+    <p><b>The effect of producing sound using a button has been restored </b>
+    <p> Following the same process, I recreated what we learned in class by using buttons to trigger sounds. However, connecting the sensors to the ports through paper was very unstable and they easily came loose. Since I did not have a hot glue gun, I used double-sided tape on the back, which worked slightly better.</p>
+        <img src="以此类推.JPG" width="260"> <img src="不粘.JPG" width="150"> <img src="粘.JPG" width="150"> <video width="150" controls><source src="4跟按钮.MOV" type="video/mp4"></video>
+
+    <br><br>
+    <p><b>Added potentiometer</b>
+    <p> Testing in Arduino to see whether the values can be read correctly.</p>
+        <img src="加入旋钮.png" width="260"> <video width="150" controls><source src="加入旋钮.MOV" type="video/mp4"></video>
+
+    <br><br>
+    <p><b>Added potentiometer in Processing</b>
+    <p> I attempted to add a potentiometer along with visual feedback. The plan was to use the potentiometer to control the volume of a new audio track, which would loop continuously. While adjusting the volume, a rectangular volume bar on the screen would change accordingly. I followed a tutorial to add the potentiometer in Processing, but in the end, neither the audio volume nor the volume bar changed, even though the values were updating.</p>
+    <img src="加旋钮1.png" width="260"> <img src="加旋钮2.png" width="260"><img src="加旋钮3.png" width="260"> <img src="简单视觉反馈+音量条.png" width="260"> <img src="默认音量.png" width="260"> <img src="旋钮控制beat音量.png" width="260"> <img src="允许第五个值.png" width="260"><video width="150" controls><source src="音量没有变化.mov" type="video/mp4"></video>
+
+    <br><br>
+    <p><b>The volume did not change.</b>
+    <p> Since the audio always played at a fixed volume as soon as the program started, I thought that setting the volume to 0 might make the changes more noticeable. I therefore remapped the 0–4095 sensor values to the volume range and added volume smoothing. However, after playback started, the sound became completely silent, and the potentiometer no longer had any effect.</p>
+    <img src="无声.png" width="260"> <img src="旋钮 → Beat 目标音量.png" width="260"><img src="音量控制（平滑.png" width="260"> <img src="音量平滑.png" width="260"> <video width="150" controls><source src="我不知道为什么加入旋钮之后按钮就没声音了.mov" type="video/mp4"></video>
+
+    <br><br>
+    <p> When I reconnected the button to test everything together, I found that the button-triggered sounds were also no longer working. After reviewing the assignment, I realized that it only required four controllers rather than four different types of sensors, so I decided to switch back to using buttons. Because the paper-box wiring setup was still too unstable and the wires came loose easily, I eventually returned to using a breadboard.</p>
+    <img src="我以为是接收的问题.JPG" width="260">
+   
+
+    <br><br>
+    <p><b>Sound generates blocks</b>
+    <p> I created the DrumVisual class to represent each visual block that appears when a button is triggered. This class stores the block’s position, size, color, and whether it is still “alive,” and the constructor initializes these values when a new block is created. By doing this, I can easily generate, display, and remove multiple visual elements independently in response to sound events.</p>
+    <img src="按钮1显示红色方块.png" width="260"> <img src="白色背景上显示所有活跃方块.png" width="260"><img src="白色画布.png" width="260"> <img src="方块创建11.png" width="260"> <img src="方块逐渐缩小.png" width="260"> <video width="150" controls><source src="仅红色.MOV" type="video/mp4"></video>
+
+    <p> By the same logic, I also created yellow, green, and blue blocks, and adjusted their size parameters to make the visuals more dynamic. I didn’t like the bordered effect, so I removed the outlines. In the end, it looked quite nice, even though I only used buttons as sensors.</p>
+    <img src="去掉边框.png" width="260"> <img src="final1.png" width="260"><img src="final2.png" width="260"> <img src="final3.png" width="260"> <img src="final4.png" width="260"> <video width="200" controls><source src="final.mov" type="video/mp4"></video>
+
+
+
+
+ 
+
+
+        <br><br>
+        <br><br>

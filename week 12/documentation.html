@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width: 65%; margin-left: 30px; margin-top: 30px;"></div>
+    <h1>Documentation</h1>
+    <p><b>1. Based on the controller we learned in class last week, I first rebuilt the circuit and tried using a joystick as the sensor for this assignment.</p>
+        <img src="1.JPG" width="300">
+        <br><br>
+
+    <p><b>2. I find a tutorial on YouTube</b></p>
+    <p>However, this tutorial seems different from the microcontroller I‘m using. I’m not sure which pins to connect, and after following the code and wiring shown in the video, I found that the Arduino did not show any change in values.</p>
+    <img src="2.jpg" width="300"> <img src="3.JPG" width="300">
+    <br><br>
+
+    <p><b>3. I connected the left and front pins of the joystick to the power and ground respectively, with the signal pins connected as follows: the X-axis to A1 and the Y-axis to A2. However, for some reason, the ball in Processing moves at a strange angle</p>
+    <img src="5.JPG" width="300">   <video width="300" controls><source src="6.mov" type="video/mp4"></video>
+    <br><br>
+
+    <p><b>4. Found the cause of the problem!</b></p>
+    <p>I was planning to ask the instructor on Slack, but I noticed that several classmates were experiencing the same issue. Since the instructor hadn’t replied, I decided to ask directly in class on Friday. When the Finstructor took a look, he said the joystick couldn’t be used because its signal pin was very loose and needed to be re-soldered. So after class, we went to the maker lab together and did the soldering work 🧑‍🏭</p>
+    <img src="10.JPG" width="300">
+    <br><br>
+
+    <p><b>5. Tried reconnecting it…</b></p>
+    <p></p>
+    <img src="14.jpg" width="300"> <img src="15.jpg" width="300"> <img src="16.jpg" width="300">
+    <br><br>
+
+    <p><b>6. The X-axis isn’t registering any connection.</b></p>
+        <br>
+        I found that only the Y-axis was receiving signals, while the X-axis on the Arduino remained at 0/4095. As a result, the ball stayed entirely on the left half of the screen.<br>
+         <video width="200" controls><source src="13.mov" type="video/mp4"></video> <img src="19.jpg" width="300"> 
+    <br><br>
+
+    <p><b>7. I asked Maxim again… but I confirmed that my pin is indeed A2 and tried several times, so I decided to change my approach.</b></p>
+    <img src="20.jpeg" width="300"> 
+    <br><br>
+
+    <p><b>8. I switched to using a potentiometer and fixed the ball in the center in Processing. My idea was to use the potentiometer to control the ball’s size and the joystick to control its vertical position—and it worked quickly. I’m guessing maybe the joystick just can’t connect properly ().</b></p>
+    <img src="21.JPG" width="300"> <img src="22.JPG" width="300"> 
+    <video width="300" controls><source src="23.mov" type="video/mp4"></video>
+    <br><br>
+
+    <p><b>code</b></p>
+    <img src="24.png" width="300"> <img src="25.png" width="200"> <img src="26.png" width="200"> 
+    <br><br>
+
+
+
+</body>
+</html>
