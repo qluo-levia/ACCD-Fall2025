@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dog Walking System Simulation</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Dog Walking System – OOP Simulation</h1>
+
+  <h2>Intent</h2>
+  <p>
+    This project explores how simple agents — people, dogs, and environmental obstacles —
+    form a dynamic, emergent system when connected through relationships. By modeling an
+    everyday activity such as walking dogs, the project reveals how individual rules can
+    produce complex group behaviors. User interaction alters the system and generates new
+    patterns, highlighting the idea of emerging properties in a visual and interactive form.
+  </p>
+
+  <h2>Process</h2>
+  <p>
+    I modeled the system using four primary classes — Person, Dog, Bush, and Environment —
+    to clearly define each element’s behavior. After creating a UML diagram, I implemented
+    the system in p5.js using Object-Oriented programming. The visuals are symbolic, and
+    the user can manipulate people directly, which indirectly affects the dogs through the
+    leash relationship. The system produces emergent behaviors such as clustering, obstacle
+    avoidance, and leash-driven movement patterns.
+  </p>
+
+  <h2>UML Class Diagram</h2>
+  <div class="mermaid">
+    classDiagram
+        class Person {
+            +float x
+            +float y
+            +boolean selected
+            +select()
+            +move()
+            +display()
+        }
+
+        class Dog {
+            +float x
+            +float y
+            +Person owner
+            +wander()
+            +followOwner()
+            +display()
+        }
+
+        class Bush {
+            +float x
+            +float y
+            +float radius
+            +display()
+            +contains(x,y)
+        }
+
+        class Environment {
+            +List~Person~ people
+            +List~Dog~ dogs
+            +List~Bush~ bushes
+            +update()
+            +display()
+        }
+
+        Person "1" --> "many" Dog : owns >
+        Dog --> Person : follows >
+        Person --> Bush : avoids >
+        Dog --> Bush : avoids >
+  </div>
+
+  <h2>Interactive p5.js Simulation</h2>
+  <p>Click and drag a person to change the system dynamics.</p>
+
+  <!-- Replace THIS iframe link with your own p5.js / OpenProcessing share URL -->
+  <iframe src="https://editor.p5js.org/your-link-here"></iframe>
+
+</body>
+</html>
